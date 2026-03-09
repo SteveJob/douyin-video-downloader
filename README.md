@@ -4,6 +4,12 @@
 
 A Codex skill that downloads Douyin videos by reproducing the browser flow used by online downloader websites: open page, capture playable CDN URL, then download with anti-hotlink headers.
 
+## AI Quick Install
+
+Copy this sentence to Codex or Claude Code:
+
+`Please install the Douyin CDN Video Downloader skill from git@github.com:SteveJob/douyin-video-downloader.git into my $CODEX_HOME/skills directory, install required dependencies, and verify the script can run.`
+
 ## Feature Design
 
 - URL input support:
