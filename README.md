@@ -10,6 +10,8 @@ Copy this sentence to Claude Code or Codex:
 Please install the Douyin Video Downloader skill from git@github.com:SteveJob/douyin-video-downloader.git into my skills directory, install required dependencies, and verify the script can run.
 ```
 
+Download videos using skills
+
 ```
 /douyin-video-downloader download the video <url>
 ```
