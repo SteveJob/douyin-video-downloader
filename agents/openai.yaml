@@ -1,0 +1,4 @@
+interface:
+  display_name: "Douyin CDN Downloader"
+  short_description: "Extract Douyin CDN URL and download video from share links"
+  default_prompt: "Download a Douyin video from a share link by extracting a playable CDN URL and saving the MP4 locally."
