@@ -1,4 +1,4 @@
-# Douyin CDN Video Downloader Skill
+# Douyin Video Downloader Skill
 
 A LLM skill that downloads Douyin videos by reproducing the browser flow used by online downloader websites: open page, capture playable CDN URL, then download with anti-hotlink headers.
 
