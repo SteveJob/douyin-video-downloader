@@ -1,6 +1,8 @@
 # Douyin Video Downloader Skill
 
-A LLM skill that downloads Douyin videos by reproducing the browser flow used by online downloader websites: open page, capture playable CDN URL, then download with anti-hotlink headers.
+A LLM skill that downloads Douyin videos: open the page, read the **muxed** (video+audio) `play_addr` from Douyin's own data, download it with anti-hotlink headers, and verify with ffprobe that the result contains both streams.
+
+> Douyin's web player serves video and audio as **separate DASH tracks**, so naively grabbing "the first `douyinvod.com` mp4" produces a silent video or an audio-only file. This skill reads the muxed `play_addr` instead and verifies every download.
 
 ## AI Quick Install
 
@@ -21,14 +23,16 @@ Download videos using skills
 - URL input support:
   - `https://v.douyin.com/...` short links
   - `https://www.douyin.com/video/...` page links
-- Browser-network extraction:
+- Muxed-address extraction:
   - Launches Chrome via `puppeteer-core`
-  - Captures candidate MP4 CDN requests from `douyinvod.com`
+  - Reads `video.play_addr` / `bit_rate[].play_addr` from API JSON and the page's embedded SSR store (`_ROUTER_DATA` / `RENDER_DATA`)
 - Reliable download path:
-  - Uses `curl` with browser-like headers (`Referer`, `User-Agent`, `Origin`, `Range`)
+  - Uses `curl` with browser-like headers (`Referer`, `User-Agent`, `Origin`, `Cookie`)
   - Avoids common `403 Forbidden` anti-hotlink failures
-- Basic safety check:
-  - Fails if output file is too small (usually HTML error response instead of video)
+- Correctness check (key):
+  - Verifies every download with `ffprobe` and keeps the first file with **both** video and audio streams
+  - Falls back to muxing separate video/audio tracks with `ffmpeg` if needed
+  - Fails if output is too small (HTML error) or no complete file can be produced
 
 ## Repository Layout
 
